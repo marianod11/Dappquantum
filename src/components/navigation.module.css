@@ -1,0 +1,73 @@
+.navLinks {
+    margin: 7% 0px;
+    /* text-transform: uppercase; */
+    font-size: 23px;
+    }
+  
+  .navMenu {
+    background-color: var(--main);
+    width: 250px;
+    position: relative;
+    height: 100vh;
+    border-right: 2px solid hwb(240 47% 14%);
+    padding:0px;
+  }
+  
+  .logo {
+    max-width: 10%;
+    text-align: center;
+    padding: 20px 0px 20%;
+    
+  }
+  
+  .linksDecoration {
+    text-decoration: none;
+  }
+  
+  .navContainer {
+    text-align: center;
+  }
+  
+  .icons {
+   width: 10%;
+  }
+  
+  .link {
+    display: flex;
+    align-items: center;
+    /* border-radius: 25px; */
+    cursor: pointer;
+    margin: 5% 0.5rem;
+  }
+  
+  .linkSelected {
+    display: flex;
+    align-items: center;
+    background-image: linear-gradient(to right, #0087b6 0%, #0058a6 100%);
+    /* border-radius: 25px; */
+    cursor: pointer;
+    margin: 5% 0.5rem;
+  }
+  
+  .link:hover {
+    background-image: linear-gradient(to right, #0087b6 0%, #0058a6 100%);
+    /* background-color: #3d4263; */
+  }
+  
+  .toggleButton {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+  }
+  
+  .toggleButton:action {
+   transform: scale(0.8);
+  }
+  
+  .toggleButton:active {
+    transform: scale(80%);
+   }
+   

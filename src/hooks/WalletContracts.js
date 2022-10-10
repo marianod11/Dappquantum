@@ -1,38 +1,28 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import './App.css';
-import Nav from "./components/Nav";
-import Statistics from "./pages/Statistics"
-import Dashboard from "./pages/Dashboard"
-import Deposits from "./pages/Deposits"
-import Withdrawn from "./pages/Withdrawn"
-import Matrix from "./pages/Matrix"
-import GiftNft from "./pages/GiftNft"
-import Help from "./pages/Help"
-import Stake from "./pages/Stake"
-import Navigation from "./components/Navigation";
-import { useState } from "react";
-import Index from "./pages/Index";
-
 import {ethers} from 'ethers'
-import abiMatrixCore from "./abis/MATRIXCORE.json"
-import matrix1 from "./abis/MATRIXLVL1.json"
-import matrix2 from "./abis/MATRIXLVL2.json"
-import matrix3 from "./abis/MATRIXLVL3.json"
-import matrix4 from "./abis/MATRIXLVL4.json"
-import matrix5 from "./abis/MATRIXLVL5.json"
-import matrix6 from "./abis/MATRIXLVL6.json"
-import matrix7 from "./abis/MATRIXLVL7.json"
-import matrix8 from "./abis/MATRIXLVL8.json"
-import matrix9 from "./abis/MATRIXLVL9.json"
-import matrix10 from "./abis/MATRIXLVL10.json"
-import matrix11 from "./abis/MATRIXLVL11.json"
-import matrix12 from "./abis/MATRIXLVL12.json"
-import busdAbi from "./abis/BUSD.json"
+import abiMatrixCore from "../abis/matrixCore.sol/MATRIXCORE.json"
+import matrix1 from "../abis/matrixlv1.sol/MATRIXLVL1.json"
+import matrix2 from "../abis/matrixlv2.sol/MATRIXLVL2.json"
+import matrix3 from "../abis/matrixlv3.sol/MATRIXLVL3.json"
+import matrix4 from "../abis/matrixlv4.sol/MATRIXLVL4.json"
+import matrix5 from "../abis/matrixlv5.sol/MATRIXLVL5.json"
+import matrix6 from "../abis/matrixlv6.sol/MATRIXLVL6.json"
+import matrix7 from "../abis/matrixlv7.sol/MATRIXLVL7.json"
+import matrix8 from "../abis/matrixlv8.sol/MATRIXLVL8.json"
+import matrix9 from "../abis/matrixlv9.sol/MATRIXLVL9.json"
+import matrix10 from "../abis/matrixlv10.sol/MATRIXLVL10.json"
+import matrix11 from "../abis/matrixlv11.sol/MATRIXLVL11.json"
+import matrix12 from "../abis/matrixlv12.sol/MATRIXLVL12.json"
+import { useState } from "react";
+
+import busdAbi from "../abis/BUSD.sol/BUSD.json"
 
 
-function App() {
 
-  const busd = "0xaC99AE050daE5456a56912280edF81EA88C7C651"
+
+export const WalletContracts =()=> {
+
+
+const busd = "0xaC99AE050daE5456a56912280edF81EA88C7C651"
 const nft = "0x7D2135F9452e8a03D16e61E1273A2E7F28aBbd3c"
 const matrix ="0xdAED17d1BF04ae52c72323169aea707757c6407e"
 const matrixLv2 ="0x9f2D2facFC519E96d15A755b5DCa851416e6a354"
@@ -110,17 +100,14 @@ const updateEthers = async () => {
   setProvider(tempProvider);
 
 
-    let tempSigner = tempProvider.getSigner();
+        let tempSigner = tempProvider.getSigner();
 		setSigner(tempSigner);
-    
-    let tempMatrixCore = new ethers.Contract(CoreMatrix, abiMatrixCore, tempSigner);
-		setContractCore(tempMatrixCore);	
 
-    
         let buscContyrac = new ethers.Contract(busd, busdAbi, tempSigner);
 		setContractBusd(buscContyrac);
 
-     
+        let tempMatrixCore = new ethers.Contract(CoreMatrix, abiMatrixCore, tempSigner);
+		setContractCore(tempMatrixCore);	
 
         let tempMatrix1 = new ethers.Contract(matrix, matrix1, tempSigner);
         setContractMatrix1(tempMatrix1); 
@@ -157,100 +144,13 @@ const updateEthers = async () => {
 
         let tempMatrix12 = new ethers.Contract(matrixLv12, matrix12, tempSigner);
 		setContractMatrix12(tempMatrix12);   
-
-
  
 }
 
-
-
-const buyNft = async (address, lvl) =>{
-    try {
-      const buy = await contractCore.buyNft(defaultAccount, 10)
-      console.log(buy)
-    } catch (error) {
-      console.log(error)
+    return {
+        busdToken, contractCore,contractMatrix1,contractMatrix2,contractMatrix3,contractMatrix4,
+        contractMatrix5,contractMatrix6,contractMatrix7,contractMatrix8,contractMatrix9,
+        contractMatrix10,contractMatrix11,contractMatrix12,connButtonText, connectWalletHandler
     }
+
 }
-
-const approve = async () =>{
-  try {
-    const balance = await busdToken.totalSupply()
-    await busdToken.approve(CoreMatrix, balance)
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-const matrixData = async () =>{
-  try {
-   const data = await contractMatrix1.getMatrix()
-   console.log(data.toString())
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-matrixData()
-
-
-
-  return (
-    
-    <Router>
-     
-      <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-      <div className="container-fluid p-0">
-      <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-      <Index  connectWalletHandler={connectWalletHandler}
-      connButtonText={connButtonText} 
-      buyNft={buyNft}
-      approve={approve}
-      
-      />
-    
-      <Routes>
-        
-        <Route path="/" exact element={<Statistics  />} />
-        <Route
-          path="/dashboard"
-          exact
-          element={<Dashboard />}
-        />
-        <Route
-          path="/deposits"
-          exact
-          element={<Deposits  />}
-        />
-        <Route
-          path="/withdrawn"
-          exact
-          element={<Withdrawn  />}
-        />
-        <Route
-          path="/matrix"
-          exact
-          element={<Matrix   />}
-        />
-        <Route
-          path="/giftnftt"
-          exact
-          element={<GiftNft  />}
-        />
-        <Route
-          path="/help"
-          exact
-          element={<Help  />}
-        />
-        <Route
-          path="/stake"
-          exact
-          element={<Stake  />}
-        />
-      </Routes>
-    </div>
-  </Router>
-  );
-}
-
-export default App;
